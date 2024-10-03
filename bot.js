@@ -32,9 +32,8 @@ const permission_user_id = process.env.permission_user_id
 //その他変数
 const commands = []
 
-
 //起動時にPIDをリセット
-fs.writeFileSync(path.join(__dirname,"commands","working.pid"),"",()=>{})
+fs.writeFileSync(path.join(__dirname,"commands","working.json"),"",()=>{})
 
 
 //起動ログ
@@ -108,7 +107,8 @@ client.login(TOKEN)
 
 //終了時に鯖を一緒に落とす
 function cleanup() {
-	const pid = fs.readFileSync(path.join(__dirname,"commands","working.pid"),"utf-8",(err,data)=>{
+	const data = fs.readFileSync(path.join(__dirname,"commands","working.json"),"utf-8",(err,data)=>{
+		const pid = JSON.parse(data).pid
 		childProcess.exec(`taskkill /f /PID ${pid}`)
 	})
 }

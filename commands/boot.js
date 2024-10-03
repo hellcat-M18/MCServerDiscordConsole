@@ -35,40 +35,62 @@ const SlashCommandObject = {
         //childprocess.spawnでディレクトリ指定して起動
         await interaction.deferReply()
 
-        const logChannel = client.channels.cache.get(process.env.log_channel_id)
+        fs.readFile(path.join(__dirname,"working.json"),"utf-8",async (err,data)=>{
 
-        const version = interaction.options.getString("version")
-        const serverFolder = path.join(path.dirname(__dirname),"versions",version)
+            if(data==""){
 
-        const embed = new EmbedBuilder()
-            .setColor("Green")
-            .setTitle("BOOT")
-            .setDescription(`${version} の構成でサーバーを起動します。`)
+                const logChannel = client.channels.cache.get(process.env.log_channel_id)
 
-        await interaction.followUp({embeds:[embed]})
+                const version = interaction.options.getString("version")
+                const serverFolder = path.join(path.dirname(__dirname),"versions",version)
 
-        const options = `-Xms${server_memory}G -Xmx${server_memory}G ${java_additional_options} -jar server.jar`
-        const childProcess = child_process.spawn("java",options.split(" "),{cwd:serverFolder,shell:false,detached:false})
+                const embed = new EmbedBuilder()
+                    .setColor("Green")
+                    .setTitle("BOOT")
+                    .setDescription(`${version} の構成でサーバーを起動します。`)
 
-        //txtにPIDを保存(停止時に使う)
-        console.log(childProcess.pid)
-        fs.writeFile(path.join(__dirname,"working.pid"),childProcess.pid.toString(),()=>{console.log(`Started childProcess (PID=${childProcess.pid})`)})
+                await interaction.followUp({embeds:[embed]})
 
-        //ストリーム形式でログとエラーを出力
-        childProcess.stdout.on("data",(chunk)=>{
-            console.log(chunk.toString())
-            if(logChannel!==""){logChannel.send(`\`${chunk.toString()}\``)}
+                const options = `-Xms${server_memory}G -Xmx${server_memory}G -jar server.jar`
+                const childProcess = child_process.spawn("java",options.split(" "),{cwd:serverFolder,shell:false,detached:false})
+
+                //txtにPIDを保存(停止時に使う)
+                const serverInfo = {name:version,pid:childProcess.pid}
+                fs.writeFile(path.join(__dirname,"working.json"),JSON.stringify(serverInfo),()=>{console.log(`Started childProcess (PID=${childProcess.pid})`)})
+
+                //ストリーム形式でログとエラーを出力
+                childProcess.stdout.on("data",(chunk)=>{
+                    console.log(chunk.toString())
+                    if(logChannel!==""){logChannel.send(`\`${chunk.toString()}\``)}
+                })
+                
+                childProcess.stderr.on("data",(chunk)=>{
+                    console.log(chunk.toString())
+                    if(logChannel!==""){logChannel.send(`\`[ERROR] ${iconv.decode(chunk,"Shift-JIS")}\``)}
+                })
+
+                //プロセス終了時にworking.jsonをリセット
+                childProcess.on("close",()=>{
+                    fs.writeFile(path.join(__dirname,"working.json"),"",()=>{})
+                })
+
+            }else{
+
+                const serverInfo = JSON.parse(data)
+
+                const embed = new EmbedBuilder()
+                    .setColor("Red")
+                    .setTitle("ERROR")
+                    .setDescription(`既に ${serverInfo.name} の構成が起動しています。`)
+
+                await interaction.followUp({embeds:[embed]})
+
+            }
+            
+
         })
+
         
-        childProcess.stderr.on("data",(chunk)=>{
-            console.log(chunk.toString())
-            if(logChannel!==""){logChannel.send(`\`[ERROR] ${iconv.decode(chunk,"Shift-JIS")}\``)}
-        })
-
-        //プロセス終了時にworking.pidをリセット
-        childProcess.on("close",()=>{
-            fs.writeFile(path.join(__dirname,"working.pid"),"",()=>{})
-        })
 
     }
 }

@@ -1,15 +1,15 @@
-[18:43:39] [ServerMain/WARN]: Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
-[18:43:44] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
-[18:43:46] [ServerMain/INFO]: Loaded 1290 recipes
-[18:43:46] [ServerMain/INFO]: Loaded 1399 advancements
-[18:43:47] [Server thread/INFO]: Starting minecraft server version 1.21.1
-[18:43:47] [Server thread/INFO]: Loading properties
-[18:43:47] [Server thread/INFO]: Default game type: SURVIVAL
-[18:43:47] [Server thread/INFO]: Generating keypair
-[18:43:47] [Server thread/INFO]: Starting Minecraft server on *:25565
-[18:43:47] [Server thread/INFO]: Using default channel type
-[18:43:47] [Server thread/INFO]: Preparing level "world"
-[18:43:48] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
-[18:43:48] [Worker-Main-15/INFO]: Preparing spawn area: 0%
-[18:43:48] [Server thread/INFO]: Time elapsed: 543 ms
-[18:43:48] [Server thread/INFO]: Done (1.481s)! For help, type "help"
+[15:36:55] [ServerMain/WARN]: Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
+[15:36:59] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[15:37:01] [ServerMain/INFO]: Loaded 1290 recipes
+[15:37:01] [ServerMain/INFO]: Loaded 1399 advancements
+[15:37:02] [Server thread/INFO]: Starting minecraft server version 1.21.1
+[15:37:02] [Server thread/INFO]: Loading properties
+[15:37:02] [Server thread/INFO]: Default game type: SURVIVAL
+[15:37:02] [Server thread/INFO]: Generating keypair
+[15:37:02] [Server thread/INFO]: Starting Minecraft server on *:25565
+[15:37:02] [Server thread/INFO]: Using default channel type
+[15:37:02] [Server thread/INFO]: Preparing level "world"
+[15:37:03] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[15:37:03] [Worker-Main-1/INFO]: Preparing spawn area: 0%
+[15:37:03] [Server thread/INFO]: Time elapsed: 397 ms
+[15:37:03] [Server thread/INFO]: Done (1.127s)! For help, type "help"
