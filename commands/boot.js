@@ -54,7 +54,7 @@ const SlashCommandObject = {
                 const options = `-Xms${server_memory}G -Xmx${server_memory}G -jar server.jar`
                 const childProcess = child_process.spawn("java",options.split(" "),{cwd:serverFolder,shell:false,detached:false})
 
-                //txtにPIDを保存(停止時に使う)
+                //jsonにPIDを保存(停止時に使う)
                 const serverInfo = {name:version,pid:childProcess.pid}
                 fs.writeFile(path.join(__dirname,"working.json"),JSON.stringify(serverInfo),()=>{console.log(`Started childProcess (PID=${childProcess.pid})`)})
 

@@ -1,12 +1,12 @@
 require("dotenv").config()
-const {SlashCommandBuilder, EmbedBuilder} = require("discord.js")
+const discord = require("discord.js")
 const fs = require("fs")
 const path = require("path")
 const childProcess = require("child_process")
 
 const SlashCommandObject = {
     //スラッシュコマンドの設定
-    data:new SlashCommandBuilder()
+    data:new discord.SlashCommandBuilder()
         .setName(path.basename(__filename).split(".")[0])
         .setDescription("")
 
