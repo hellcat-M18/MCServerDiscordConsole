@@ -36,6 +36,9 @@ const commands = []
 //起動時にPIDをリセット
 fs.writeFileSync(path.join(__dirname,"commands","working.json"),"",()=>{})
 
+//存在しなければVersionsフォルダを作る
+fs.mkdirSync("versions",{recursive:true},(err)=>{})
+
 
 //起動ログ
 client.once("ready",()=>{
