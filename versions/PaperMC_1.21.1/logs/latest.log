@@ -1,0 +1,9 @@
+[15:20:18] [ServerMain/INFO]: [bootstrap] Running Java 21 (Java HotSpot(TM) 64-Bit Server VM 21.0.3+7-LTS-152; Oracle Corporation null) on Windows 11 10.0 (amd64)
+[15:20:18] [ServerMain/INFO]: [bootstrap] Loading Paper 1.21.1-120-master@57c75a4 (2024-10-09T21:11:07Z) for Minecraft 1.21.1
+[15:20:18] [ServerMain/WARN]: [oshi.driver.windows.perfmon.PerfmonDisabled] Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
+[15:20:18] [ServerMain/INFO]: [PluginInitializerManager] Initializing plugins...
+[15:20:19] [ServerMain/INFO]: [PluginInitializerManager] Initialized 0 plugins
+[15:20:19] [Paper Plugin Remapper Thread - 0/INFO]: [ReobfServer] Remapping server...
+[15:20:25] [Paper Plugin Remapper Thread - 0/INFO]: [ReobfServer] Done remapping server in 5432ms.
+[15:20:25] [ServerMain/WARN]: Failed to load eula.txt
+[15:20:25] [ServerMain/INFO]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.

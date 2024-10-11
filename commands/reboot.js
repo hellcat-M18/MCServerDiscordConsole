@@ -57,12 +57,12 @@ const SlashCommandObject = {
                     //ストリーム形式でログとエラーを出力
                     child.stdout.on("data",(chunk)=>{
                         console.log(chunk.toString())
-                        if(logChannel!==""){logChannel.send(`\`${chunk.toString()}\``)}
+                        if(Boolean(logChannel)){logChannel.send(`\`${chunk.toString()}\``)}
                     })
                     
                     child.stderr.on("data",(chunk)=>{
                         console.log(chunk.toString())
-                        if(logChannel!==""){logChannel.send(`\`[ERROR] ${iconv.decode(chunk,"Shift-JIS")}\``)}
+                        if(Boolean(logChannel)){logChannel.send(`\`[ERROR] ${iconv.decode(chunk,"Shift-JIS")}\``)}
                     })
     
                     //プロセス終了時にworking.jsonをリセット

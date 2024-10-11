@@ -17,6 +17,7 @@ const SlashCommandObject = {
         await interaction.deferReply()
 
         //jsonファイルを参照し死活判定
+        //ちゃんとtasklistとかの結果見た方が良いかなーと思いつつ面倒なのでひとまず
         fs.readFile(path.join(__dirname,"working.json"),"utf-8",async (err,data)=>{
             if(data!==""){
                 const serverName = JSON.parse(data).name

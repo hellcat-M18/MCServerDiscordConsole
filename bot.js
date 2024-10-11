@@ -29,6 +29,7 @@ const log_channel_id = process.env.log_channel_id
 const permisson_role_id = process.env.permisson_role_id
 const permission_user_id = process.env.permission_user_id
 
+
 //その他変数
 const commands = []
 

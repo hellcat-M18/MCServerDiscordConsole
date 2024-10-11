@@ -30,7 +30,7 @@ const SlashCommandObject = {
                     console.log(serverInfo.pid)
 
                     //プロセスツリーを終了
-                    const child = childProcess.exec(`taskkill /f /t /PID ${serverInfo.pid}`)
+                    const child = childProcess.exec(`taskkill /t /PID ${serverInfo.pid}`)
                     const embed = new discord.EmbedBuilder()
                         .setColor("Green")
                         .setTitle("DOWN")
