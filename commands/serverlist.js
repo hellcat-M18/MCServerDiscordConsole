@@ -20,14 +20,14 @@ const SlashCommandObject = {
         
         const serverFolders = fs.readdirSync(serverRootFolder)
 
-        let listStr =""
+        let listStr = ""
 
         serverFolders.forEach(elem => {
             
             listStr = listStr+`**・${elem}**\n`
 
         });
-        if(listStr==""){
+        if(listStr===""){
             listStr="起動構成は存在しません。"
         }
 
