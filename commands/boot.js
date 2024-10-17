@@ -14,7 +14,7 @@ for(let folderName of serverFolders){
 }
 
 if(!Boolean(choices[0])){
-    choices.push({name:"[NO INSTALLATION FOUND]",value:"[PLACEHOLDER]"})
+    choices.push({name:"[NO INSTALLATION FOUND]",value:"<PLACEHOLDER>"})
 }
 
 
@@ -39,7 +39,7 @@ const SlashCommandObject = {
 
         const version = interaction.options.getString("version")
 
-        if(version==="[PLACEHOLDER]"){
+        if(version==="<PLACEHOLDER>"){
 
             const embed = new EmbedBuilder()
                 .setColor("Blue")
@@ -64,7 +64,7 @@ const SlashCommandObject = {
     
                     await interaction.followUp({embeds:[embed]})
     
-                    const childProcess = child_process.spawn("run.bat",[],{cwd:serverFolder,shell:false,detached:false})
+                    const childProcess = child_process.spawn("run.bat",[],{cwd:serverFolder})
     
                     //jsonにPIDを保存(停止時に使う)
                     const serverInfo = {name:version,pid:childProcess.pid}

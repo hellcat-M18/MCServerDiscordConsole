@@ -39,6 +39,41 @@ fs.writeFileSync(path.join(__dirname,"commands","working.json"),"",()=>{})
 //存在しなければVersionsフォルダを作る
 fs.mkdirSync("versions",{recursive:true},(err)=>{})
 
+const logChannel = client.channels.cache.get(process.env.log_channel_id)
+
+function StartUp(version,dir){
+
+    const child = childProcess.spawn("run.bat",[],{cwd:dir})
+    
+    //jsonにPIDを保存(停止時に使う)
+    const serverInfo = {name:version,pid:child.pid}
+    fs.writeFile(path.join(__dirname,"commands","working.json"),JSON.stringify(serverInfo),()=>{console.log(`Started childProcess (PID=${childProcess.pid})`)})
+
+    //ストリーム形式でログとエラーを出力
+    child.stdout.on("data",(chunk)=>{
+        console.log(chunk.toString())
+        if(Boolean(logChannel)){logChannel.send(`\`${chunk.toString()}\``)}
+    })
+    
+    child.stderr.on("data",(chunk)=>{
+        console.log(chunk.toString())
+        if(Boolean(logChannel)){logChannel.send(`\`[ERROR] ${iconv.decode(chunk,"Shift-JIS")}\``)}
+    })
+
+    //プロセス終了時にworking.jsonをリセット
+    child.on("close",()=>{
+        fs.writeFile(path.join(__dirname,"commands","working.json"),"",()=>{})
+    })
+
+}
+
+const startupVersion = fs.readFileSync(path.join(__dirname,"startup.txt"),"utf-8")
+
+if(startupVersion){
+    const startupDir = path.join(path.join(__dirname,"versions"),startupVersion)
+    StartUp(startupVersion,startupDir)
+}
+
 
 //起動ログ
 client.once("ready",()=>{
@@ -113,20 +148,20 @@ client.login(TOKEN)
 function cleanup() {
 	const data = fs.readFileSync(path.join(__dirname,"commands","working.json"),"utf-8",(err,data)=>{
 		const pid = JSON.parse(data).pid
-		childProcess.exec(`taskkill /f /PID ${pid}`)
+		const child = childProcess.exec(`taskkill /f /t /PID ${pid}`)
+
+        
 	})
 }
 
 // SIGINT（Ctrl+C）をキャッチ
 process.on('SIGINT', () => {
-	console.log('SIGINTシグナルを受信しました。');
-	cleanup();
-	process.exit(0); // 正常終了
+    cleanup()
+    process.exit(0)
   });
   
   // SIGTERMをキャッチ
   process.on('SIGTERM', () => {
-	console.log('SIGTERMシグナルを受信しました。');
-	cleanup();
-	process.exit(0); // 正常終了
+	cleanup()
+    process.exit(0)
   });

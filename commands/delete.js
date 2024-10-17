@@ -90,7 +90,7 @@ for(let folderName of serverFolders){
 }
 
 if(!Boolean(choices[0])){
-    choices.push({name:"[NO INSTALLATION FOUND]",value:"[PLACEHOLDER]"})
+    choices.push({name:"[NO INSTALLATION FOUND]",value:"<PLACEHOLDER>"})
 }
 
 
@@ -115,7 +115,7 @@ const SlashCommandObject = {
 
         const name = interaction.options.getString("name")
 
-        if(name==="[PLACEHOLDER]"){
+        if(name==="<PLACEHOLDER>"){
 
             const embed = new discord.EmbedBuilder()
                 .setColor("Blue")
